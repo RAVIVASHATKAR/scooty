@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withGoogleMap, withScriptjs, GoogleMap, Marker } from 'react-google-maps';
+import withCurrentLocation from './HOC/current_location';
 
 class Map extends Component {
   renderCurrentPositionMarker = () => {
@@ -49,4 +50,4 @@ class Map extends Component {
   }
 }
 
-export default withScriptjs(withGoogleMap(Map));
+export default withCurrentLocation(withScriptjs(withGoogleMap(Map)));

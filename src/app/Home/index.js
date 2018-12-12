@@ -11,45 +11,18 @@ class Home extends Component {
     }
   }
 
-  currentLocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      this.locationSuccess,
-    )
-  }
-
-  locationSuccess = (position) => {
-    const currentLocation = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    }
-
-    this.setState({currentLocation})
-  }
-
-  renderMap = () => {
-    const { scooterLocations, currentLocation } = this.state
-
-    if (Object.keys(currentLocation).length === 0) {
-      return this.currentLocation();
-    }
-
-    return(
-      <Map
-        {...{ scooterLocations }}
-        center={currentLocation}
-        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuOsOYis8mssY8a0FL-V859ol2Ktp9jPU"
-        loadingElement={<div style={{width: 500, height: 500}} />}
-        mapElement={<div style={{width: 500, height: 500}} />}
-        containerElement={<div style={{width: 500, height: 500}} />}
-      />
-    )
-  }
-
   render() {
+    const { scooterLocations } = this.state
 
     return (
       <div className="home">
-        { this.renderMap() }
+        <Map
+          {...{ scooterLocations }}
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuOsOYis8mssY8a0FL-V859ol2Ktp9jPU"
+          loadingElement={<div style={{width: 500, height: 500}} />}
+          mapElement={<div style={{width: 500, height: 500}} />}
+          containerElement={<div style={{width: 500, height: 500}} />}
+        />
       </div>
     );
   }
