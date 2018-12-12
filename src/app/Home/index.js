@@ -11,7 +11,7 @@ class HomeContainer extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000')
+    fetch('http://localhost:3000?lat=1.3521&lng=103.8198&radius=5')
       .then(response => response.json())
       .then(this.loadSuccess)
   }

@@ -22,7 +22,6 @@ class Map extends Component {
     markers = scooterLocations.map((pos) => {
       let position = { lng: pos.longitude, lat: pos.latitude }
 
-        console.log(position)
       return(
         <Marker
           key={pos.id}
@@ -39,7 +38,6 @@ class Map extends Component {
     const SINGAPORE_CENTER = { lat: 1.3521, lng: 103.8198 }
     const center = this.props.center || SINGAPORE_CENTER
 
-    console.log(center);
     if (center == null) { return }
 
     return(
