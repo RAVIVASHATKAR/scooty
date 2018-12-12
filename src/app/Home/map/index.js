@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { withGoogleMap, withScriptjs, GoogleMap, Marker } from 'react-google-maps';
+import {
+  Circle,
+  withGoogleMap,
+  withScriptjs,
+  GoogleMap,
+  Marker
+} from 'react-google-maps';
 import withCurrentLocation from './HOC/current_location';
 
 class Map extends Component {
@@ -35,6 +41,13 @@ class Map extends Component {
   render() {
     const SINGAPORE_CENTER = { lat: 1.3521, lng: 103.8198 }
     const center = this.props.center || SINGAPORE_CENTER
+    const circleOptions = {
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+    }
 
     console.log(center);
     if (center == null) { return }
@@ -45,6 +58,12 @@ class Map extends Component {
         defaultCenter={center}
       >
         { this.renderMarkers() }
+        <Circle
+          center={center}
+          radius={200}
+          visible={true}
+          options={circleOptions}
+        />
       </GoogleMap>
     )
   }
