@@ -1,31 +1,47 @@
 import React, { Component } from 'react'
-import Map from './map'
-import ScooterLocations from './scooters';
+import Home from './home';
 
-class Home extends Component {
+class HomeContainer extends Component {
   constructor() {
     super()
+
     this.state = {
-      scooterLocations: ScooterLocations,
-      currentLocation: {},
+      scooters: []
     }
   }
 
-  render() {
-    const { scooterLocations } = this.state
+  componentDidMount() {
+    fetch('http://localhost:3000')
+      .then(response => response.json())
+      .then(this.loadSuccess)
+  }
 
-    return (
-      <div className="home">
-        <Map
-          {...{ scooterLocations }}
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuOsOYis8mssY8a0FL-V859ol2Ktp9jPU"
-          loadingElement={<div style={{width: 500, height: 500}} />}
-          mapElement={<div style={{width: 500, height: 500}} />}
-          containerElement={<div style={{width: 500, height: 500}} />}
-        />
-      </div>
-    );
+  loadSuccess = (data) => {
+    this.setState({ scooters: this.format(data) })
+  }
+
+  format = (data) => {
+    const newData = data
+
+    data.forEach((obj, i) => {
+      newData[i].latitude = parseFloat(obj.latitude)
+      newData[i].longitude = parseFloat(obj.longitude)
+    })
+
+    return newData
+  }
+
+  render() {
+    const { scooters } = this.state
+
+    if (scooters.length == 0) { return <div /> }
+
+    return(
+      <Home
+        {...{ scooters }}
+      />
+    )
   }
 }
 
-export default Home;
+export default HomeContainer;

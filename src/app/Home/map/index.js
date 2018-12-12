@@ -19,11 +19,14 @@ class Map extends Component {
     let markers = [];
     const { scooterLocations } = this.props
 
-    markers = scooterLocations.map((pos, i) => {
+    markers = scooterLocations.map((pos) => {
+      let position = { lng: pos.longitude, lat: pos.latitude }
+
+        console.log(position)
       return(
         <Marker
-          key={i}
-          position={pos}
+          key={pos.id}
+          position={position}
         />
       )
     })
